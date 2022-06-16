@@ -1,6 +1,7 @@
 const express = require('express');
 require('./DB/conn')
 const PaymentInfo = require("./model/PaymentInfo");
+const sendMail=require("./mailer")
 
 const app = express();
 const port = 5000 || process.env.PORT;
@@ -36,8 +37,19 @@ app.post('/putdetails', async (req, res) => {
         console.log(ack)
         res.send("Info saved success fully");
     } catch (e) {
-        console.log(e.messsage);
+        console.log(e.message);
         res.Error("Error during saving data");
+    }
+})
+
+app.post('/sendreminder',async (req, res)=>{
+    try{
+    const _id=req.body._id;
+    const data=await PaymentInfo.find({_id});
+    sendMail(data);
+    res.json({message:"Payment Reminder Email has sent"});
+    }catch(e){
+        res.json({message:e.message})
     }
 })
 

@@ -1,21 +1,22 @@
-import { useEffect , useState} from "react";
 import axios from "axios";
 
-const TableOfInfo=()=>{
+const TableOfInfo = (props) => {
+    try{
+    const allInfo = props.allInfo;
+    console.log(allInfo);
+    const dt =(d)=>{
+        const d1=new Date(Date.parse(d));
+        return d1.toDateString();
+    } 
+    const reminderHandler=(element)=>{
+        const id=element.target.getAttribute("id");
+        axios.post('/sendreminder',{_id:id})
+        .then((res)=>{
+            alert(res.data.message);
+        })
+    }
 
-    const [allInfo, setallInfo] = useState(undefined);
-
-    const d=new Date();
-    const dt=d.toDateString();
-    useEffect(() => {
-        const f=async()=>{
-            const info=await axios.get('/getdetails');
-            setallInfo(info.data);
-        }
-        f();
-        
-    }, []);
-    return(
+    return (
         <table className="table table-striped">
             <thead>
                 <tr>
@@ -28,21 +29,45 @@ const TableOfInfo=()=>{
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Rajesh Das</td>
-                    <td>rd1585700@gmail.com</td>
-                    <td>750</td>
-                    <td>huhyui</td>
-                    <td>{dt}</td>
-                    <td>
-                        <div>
-                            <button className="btn btn-success">Send Reminder</button>
-                        </div>
-                    </td>
-                </tr>
+                {
+                    allInfo.map((val) => {
+                        return (
+                            <tr>
+                                <td>{val.customername}</td>
+                                <td>{val.customeremail}</td>
+                                <td>{val.balance}</td>
+                                <td>{val.description}</td>
+                                <td>{dt(val.lastdate)}</td>
+                                <td>
+                                    <div>
+                                        <button id={val._id} className="btn btn-success" onClick={(e)=>{reminderHandler(e)}}>Send Reminder</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        )
+                    }
+                    )
+                }
             </tbody>
         </table>
     )
+    }catch(e){
+        return(
+            <table className="table table-striped">
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Customer Email</th>
+                    <th>Balance</th>
+                    <th>Description</th>
+                    <th>Last Date</th>
+                    <th>Send Reminder</th>
+                </tr>
+            </thead>
+            </table>
+        )
+    }
+
 }
 
 export default TableOfInfo;

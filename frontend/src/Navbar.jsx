@@ -1,10 +1,12 @@
 const Navbar = () => {
     return (
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
+        <>
+        <nav className="navbar navbar-expand-lg bg-light">
+            <div className="container-fluid">
                 <a className="navbar-brand" href="/">Payment Reminder</a>
             </div>
         </nav >
+        </>
     );
 }
 
