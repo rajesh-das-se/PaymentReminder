@@ -2,29 +2,52 @@ const express = require('express');
 require('./DB/conn')
 const PaymentInfo = require("./model/PaymentInfo");
 
-const app=express();
-const port=5000||process.env.PORT;
+const app = express();
+const port = 5000 || process.env.PORT;
 
 app.use(express.json());
 
 
-app.get('/', (req, res)=>{
+app.get('/', (req, res) => {
     res.send("welcome to server");
 })
 
-app.post('/putdetails', (req, res)=>{
-    console.log("oojkju");
-    console.log(req.body);
-    res.send("okay");
+app.get('/getdetails',async (req, res)=>{
+    try{
+        const Info=await PaymentInfo.find();
+        res.json(Info);
+    }catch(e){
+        res.send(e.messsage);
+    }
 })
 
-app.get('*',(req, res)=>{
+app.post('/putdetails', async (req, res) => {
+    try {
+        const data = req.body;
+        const Info = new PaymentInfo({
+            yourname: data.yourname,
+            customername: data.customername,
+            customeremail: data.customeremail,
+            balance: data.balance,
+            description: data.description,
+            lastdate: data.lastdate
+        })
+        const ack = await Info.save();
+        console.log(ack)
+        res.send("Info saved success fully");
+    } catch (e) {
+        console.log(e.messsage);
+        res.Error("Error during saving data");
+    }
+})
+
+app.get('*', (req, res) => {
     res.status(404).send("This page does not exist");
 })
 
-app.listen(port, (err)=>{
-    if(err) console.log(err.messsage);
-    else{
+app.listen(port, (err) => {
+    if (err) console.log(err.messsage);
+    else {
         console.log(`running at http://localhost:${port}`);
     }
 })

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import validator from "validator";
 const AddReminder = () => {
     const [yourname, setYourname]=useState("");
     const [customername, setCustomername]=useState("");
@@ -9,7 +10,36 @@ const AddReminder = () => {
     const [lastdate, setLastdate]=useState(Date.now());
 
     const submitHandler=()=>{
-        axios.post('/putdetails',{yourname,customername,customeremail,balance,description,lastdate});
+        if(yourname===""){
+            alert("Your Name filled can't be empty");
+            return;
+        }
+        if(customername===""){
+            alert("Customer Name filled can't be empty");
+            return;
+        }
+        if(!validator.isEmail(customeremail)){
+            alert("Enter a Valid email");
+            return;
+        }
+        if(balance===0){
+            alert("balance can't be 0");
+            return;
+        }
+        if(description===""){
+            alert("Please enter a description of your balance");
+            return;
+        }
+        if(lastdate<Date.now()){
+            alert("Don't Enter previous dates");
+            return;
+        }
+        axios.post('/putdetails',{yourname,customername,customeremail,balance,description,lastdate})
+        .then((res)=>{
+            alert(res.data);
+        }).catch((e)=>{
+            alert(e.message);
+        })
         setYourname("");
         setCustomername("");
         setCustomeremail("");
