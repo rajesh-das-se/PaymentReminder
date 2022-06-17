@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+require('dotenv').config();
 
-mongoose.connect("mongodb://localhost:27017/PaymentRemiderDB")
+mongoose.connect(process.env.DBADDRESS)
 .then(()=>{
     console.log("connected database");
 }).catch((e)=>{

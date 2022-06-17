@@ -46,7 +46,7 @@ app.post('/sendreminder',async (req, res)=>{
     try{
     const _id=req.body._id;
     const data=await PaymentInfo.find({_id});
-    sendMail(data);
+    sendMail(data.yourname, data.customername, data.customeremail, data.balance, data.description, data.lastdate);
     res.json({message:"Payment Reminder Email has sent"});
     }catch(e){
         res.json({message:e.message})

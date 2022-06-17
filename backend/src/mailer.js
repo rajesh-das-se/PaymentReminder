@@ -1,25 +1,25 @@
 var nodemailer = require('nodemailer');
+require('dotenv').config();
 
-const sendReminder = async (Info) =>{
-  const data=Info;
+const sendReminder = async (yourname, customername, customeremail, balance, description, lastdate) =>{
   var transporter = nodemailer.createTransport({
     service: 'hotmail',
     auth: {
-      user: 'rd1585700@outlook.com',
-      pass: 'Rajesh@2001'
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD
     }
   });
 
   var mailOptions = {
-    from: 'rd1585700@outlook.com',
-    to: data.customeremail,
+    from: process.env.EMAIL,
+    to: customeremail,
     subject: 'Payment Reminder from',
-    text: `Dear ${data.customername}`+'\n'+`You have to pay ${data.balance} Rs to ${data.yourname} before ${data.lastdate} for ${data.description}`
+    text: `Dear ${customername}`+'\n'+`You have to pay ${balance} Rs to ${yourname} before ${lastdate} for ${description}`
   };
 
-  const k=await transporter.sendMail(mailOptions, function (error, info) {
+  transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log(error);
+      console.log(error.message);
     } else {
       console.log('Email sent: ' + info.response);
     }
