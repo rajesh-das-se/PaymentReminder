@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0); //whenever a user click "Add Reminder", "send" and "delete" buton , count will increment
   const [allInfo, setallInfo] = useState(undefined);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function App() {
       <Navbar />
       <AddReminder setclickCount={setCount} clickCount={count} />
       <hr />
-      <TableOfInfo allInfo={allInfo} />
+      <TableOfInfo allInfo={allInfo} setclickCount={setCount} clickCount={count}/>
     </div>
   );
 }

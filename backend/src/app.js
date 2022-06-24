@@ -46,10 +46,21 @@ app.post('/sendreminder',async (req, res)=>{
     try{
     const _id=req.body._id;
     const data=await PaymentInfo.find({_id});
-    sendMail(data.yourname, data.customername, data.customeremail, data.balance, data.description, data.lastdate);
-    res.json({message:"Payment Reminder Email has sent"});
+    sendMail(data[0]);
+    res.json({message:"okay"});
     }catch(e){
         res.json({message:e.message})
+    }
+})
+
+app.post('/remove',async (req,res)=>{
+    try{
+        const ack=await PaymentInfo.deleteOne({_id:req.body._id});
+        console.log(ack);
+        res.send("okay");
+    }
+    catch(error){
+        res.json({message:error.message});
     }
 })
 
