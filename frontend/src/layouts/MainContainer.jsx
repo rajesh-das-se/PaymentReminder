@@ -1,10 +1,10 @@
-import Navbar from "./Navbar";
-import AddReminder from "./AddReminder";
-import TableOfInfo from "./TableOfInfo";
+import Navbar from "./../components/Navbar";
+import AddReminder from "./../components/AddReminder";
+import TableOfInfo from "./../components/TableOfInfo";
 import { useState, useEffect } from "react"
 import axios from "axios";
 
-function App() {
+function MainContainer() {
   const [count, setCount] = useState(0); //whenever a user click "Add Reminder", "send" and "delete" buton , count will increment
   const [allInfo, setallInfo] = useState(undefined);
 
@@ -29,4 +29,4 @@ function App() {
   );
 }
 
-export default App;
+export default MainContainer;
