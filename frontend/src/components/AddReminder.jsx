@@ -61,29 +61,17 @@ const AddReminder = (props) => {
 
     return (
         <div className="container mt-3">
-            <div className="input-group mb-3">
-                <span className="input-group-text">Your Name</span>
-                <input type="text" className="form-control" name="yourname" value={reminderInfo.yourname} onChange={onChangeHandler} required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <div>
+                <input type="text" placeholder="Customer Name"/>
             </div>
-            <div className="input-group mb-3">
-                <span className="input-group-text" >Customer's Name</span>
-                <input type="text" className="form-control" name="customername" value={reminderInfo.customername} onChange={onChangeHandler} required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-            </div> 
-            <div className="input-group mb-3">
-                <span className="input-group-text" >Customer's Email</span>
-                <input type="email" className="form-control" name="customeremail" value={reminderInfo.customeremail} onChange={onChangeHandler} required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <div>
+                <input type="text" placeholder="Customer Email" className="w-full border-gray-500"/>
             </div>
-            <div className="input-group mb-3">
-                <span className="input-group-text">Balance</span>
-                <input type="number" className="form-control" name="balance" value={reminderInfo.balance} onChange={onChangeHandler} required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <div>
+                <input type="text" placeholder="Balance"/>
             </div>
-            <div className="input-group mb-3">
-                <span className="input-group-text">Description</span>
-                <input type="text" className="form-control" name="description" value={reminderInfo.description} onChange={onChangeHandler} required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-            </div>
-            <div className="input-group mb-3">
-                <span className="input-group-text">Last Date</span>
-                <input type="date" className="form-control" name="lastdate" value={reminderInfo.lastdate} onChange={onChangeHandler} required aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <div>
+                <input type="text" placeholder="Describe the purpuse"/>
             </div>
             <div className="row">
                 <button className="btn btn-success" onClick={submitHandler}>Add Reminder</button>

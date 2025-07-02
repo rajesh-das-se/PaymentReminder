@@ -3,7 +3,7 @@ import {Home, Clock} from "lucide-react"
 const Sidebar = ()=>{
 
     return (
-        <div className="bg-blue-700 text-white w-64 p-6 rounded-r-3xl">
+        <div className="bg-[#2D68C4] text-white w-64 p-6">
             <h2 className="text-2xl font-bold mb-8">
                 Payment Reminder
             </h2>
