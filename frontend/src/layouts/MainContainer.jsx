@@ -1,4 +1,4 @@
-import Navbar from "./../components/Navbar";
+import Navbar from "./Navbar";
 import AddReminder from "./../components/AddReminder";
 import TableOfInfo from "./../components/TableOfInfo";
 import { useState, useEffect } from "react"
@@ -11,10 +11,10 @@ function MainContainer() {
   useEffect(() => {
     const f = () => {
       axios.get('/getdetails')
-      .then((res)=>{
-        setallInfo(res.data);
-      })
-      return  0;
+        .then((res) => {
+          setallInfo(res.data);
+        })
+      return 0;
     }
     f();
   }, [count]);
@@ -22,9 +22,10 @@ function MainContainer() {
   return (
     <div className="App">
       <Navbar />
-      <AddReminder setclickCount={setCount} clickCount={count} />
-      <hr />
-      <TableOfInfo allInfo={allInfo} setclickCount={setCount} clickCount={count}/>
+      <div className="border m-6 rounded">
+        <AddReminder setclickCount={setCount} clickCount={count} />
+        <TableOfInfo allInfo={allInfo} setclickCount={setCount} clickCount={count} />
+      </div>
     </div>
   );
 }
